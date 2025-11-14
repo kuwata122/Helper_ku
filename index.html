@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>地域ヘルパー掲示板</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="main.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>地域ヘルパー掲示板</h1>
+    <nav>
+      <button class="tab-button active" data-tab="terms">利用規約</button>
+      <button class="tab-button" data-tab="post">募集登録</button>
+      <button class="tab-button" data-tab="list">募集一覧</button>
+      <button class="tab-button" data-tab="about">使い方</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- 利用規約 -->
+    <section id="terms" class="tab-content active">
+      <h2>利用規約</h2>
+      <p>
+        この掲示板は地域住民同士が助け合うための試験的サービスです。<br>
+        個人情報の取り扱いには十分ご注意ください。<br>
+        サイト管理者はトラブルに関して一切の責任を負いません。<br>
+        安全な範囲でのご利用をお願いいたします。
+      </p>
+    </section>
+
+    <!-- 募集登録 -->
+    <section id="post" class="tab-content">
+      <h2>募集登録フォーム</h2>
+      <form id="helpForm">
+        <label>タイトル:<input type="text" id="title" required></label>
+        <label>カテゴリ:
+          <select id="category" required>
+            <option value="">選択してください</option>
+            <option>買い物代行</option>
+            <option>道案内・送迎</option>
+            <option>家事・修理</option>
+            <option>話し相手</option>
+            <option>その他</option>
+          </select>
+        </label>
+        <label>エリア:<input type="text" id="area" placeholder="例：中央区・北エリア" required></label>
+        <label>希望日時:<input type="datetime-local" id="datetime"></label>
+        <label>集合場所:<input type="text" id="place" placeholder="例：駅前カフェなど"></label>
+        <label>お礼 / 報酬:<input type="text" id="reward" placeholder="例：お茶代・500円など"></label>
+        <label>詳細内容:<textarea id="details" rows="4" required></textarea></label>
+        <label>連絡方法:<input type="text" id="contact" placeholder="例：メールアドレスやLINE ID"></label>
+        <label>合言葉:<input type="text" id="keyword" placeholder="安全確認のための合言葉（任意）"></label>
+        <label><input type="checkbox" id="agree" required> 利用規約に同意します</label>
+        <button type="submit">募集を登録</button>
+      </form>
+    </section>
+
+    <!-- 募集一覧 -->
+    <section id="list" class="tab-content">
+      <h2>募集一覧</h2>
+      <div class="filter-area">
+        <input type="text" id="search" placeholder="キーワード検索">
+        <select id="filterCategory">
+          <option value="">カテゴリ指定なし</option>
+          <option>買い物代行</option>
+          <option>道案内・送迎</option>
+          <option>家事・修理</option>
+          <option>話し相手</option>
+          <option>その他</option>
+        </select>
+      </div>
+      <div id="postList" class="post-list"></div>
+    </section>
+
+    <!-- 使い方 -->
+    <section id="about" class="tab-content">
+      <h2>このサイトの使い方</h2>
+      <p>
+        この掲示板では、高齢者や支援が必要な方が地域の助けを募集し、<br>
+        近隣の住民がそれを見て手助けを申し出ることができます。
+      </p>
+      <ol>
+        <li>利用規約を確認し「募集登録」タブから内容を投稿します。</li>
+        <li>「募集一覧」で地域の募集を確認し、詳細をチェックします。</li>
+        <li>合言葉を使って安全に連絡を取りましょう。</li>
+        <li>完了後は「完了」ボタンで募集を終了します。</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 地域ヘルパー掲示板 — テスト運用中</p>
+  </footer>
+</body>
+</html>
+
+
+<!-- 以下 [style.css]  -->
+<style>
+body {
+  font-family: "Zen Kaku Gothic New", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f7f7f7;
+  color: #333;
+}
+
+header {
+  background: #006e54;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+}
+
+header h1 {
+  margin: 0;
+  font-weight: 600;
+}
+
+nav {
+  margin-top: 0.5rem;
+}
+
+nav button {
+  background: white;
+  border: none;
+  margin: 0.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+nav button.active {
+  background: #004c3f;
+  color: white;
+}
+
+main {
+  padding: 1.5rem;
+}
+
+section {
+  display: none;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+section.active {
+  display: block;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+}
+
+input, select, textarea {
+  margin-top: 0.3rem;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+button[type="submit"] {
+  background: #006e54;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button[type="submit"]:hover {
+  background: #008f6b;
+}
+
+.filter-area {
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.post-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.post-card {
+  background: white;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.post-card h3 {
+  margin-top: 0;
+  color: #006e54;
+}
+
+.post-card small {
+  color: #777;
+}
+
+.post-card button {
+  background: #006e54;
+  color: white;
+  border: none;
+  margin-right: 0.5rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #eee;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
